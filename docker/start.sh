@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/webgoat 
+cd /home/webgoat || exit 
 
 function should_start_nginx() {
   if [[ -v "${SKIP_NGINX}" ]]; then
