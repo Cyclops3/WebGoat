@@ -82,7 +82,7 @@ public class JWTRefreshEndpoint extends AssignmentEndpoint {
         claims.put("admin", "false");
         claims.put("user", user);
         String token = Jwts.builder()
-                .setIssuedAt(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toDays(10)))
+                .setIssuedAt(new Date(System.currentTimeMillis() + 10L /* days */))
                 .setClaims(claims)
                 .signWith(io.jsonwebtoken.SignatureAlgorithm.HS512, JWT_PASSWORD)
                 .compact();

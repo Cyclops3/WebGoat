@@ -79,7 +79,7 @@ public class Salaries {
         try (InputStream is = new FileInputStream(d)) {
             InputSource inputSource = new InputSource(is);
 
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
 
             sb.append("/Employees/Employee/UserID | ");
             sb.append("/Employees/Employee/FirstName | ");

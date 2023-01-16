@@ -22,6 +22,11 @@
 
 package org.owasp.webgoat.xxe;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.owasp.webgoat.session.WebSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +36,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 
 @Slf4j
 public class Ping {
@@ -51,7 +52,7 @@ public class Ping {
         log.debug(logLine);
         File logFile = new File(webGoatHomeDirectory, "/XXE/log" + webSession.getUserName() + ".txt");
         try {
-            try (PrintWriter pw = new PrintWriter(logFile)) {
+            try (PrintWriter pw = new PrintWriter(logFile, UTF_8.name())) {
                 pw.println(logLine);
             }
         } catch (FileNotFoundException e) {

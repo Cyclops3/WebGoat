@@ -31,7 +31,7 @@ public class ProfileUploadFix extends ProfileUploadBase {
         return super.execute(file, fullName != null ? fullName.replace("../", "") : "");
     }
 
-    @GetMapping("/PathTraversal/profile-picture-fix")
+    @Override @GetMapping("/PathTraversal/profile-picture-fix")
     @ResponseBody
     public ResponseEntity<?> getProfilePicture() {
         return super.getProfilePicture();

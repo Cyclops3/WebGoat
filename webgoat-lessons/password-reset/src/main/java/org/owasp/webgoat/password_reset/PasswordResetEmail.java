@@ -28,6 +28,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+Returns {@code this}.
 @Builder
 @Data
 public class PasswordResetEmail implements Serializable {

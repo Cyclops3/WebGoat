@@ -22,6 +22,8 @@
 
 package org.owasp.webgoat.xss;
 
+import com.google.common.base.Splitter;
+import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.owasp.webgoat.assignments.AssignmentEndpoint;
@@ -46,9 +48,9 @@ public class CrossSiteScriptingLesson3 extends AssignmentEndpoint {
         try {
             if (editor.isEmpty()) return failed(this).feedback("xss-mitigation-3-no-code").build();
             Document doc = Jsoup.parse(unescapedString);
-            String[] lines = unescapedString.split("<html>");
+            List<String> lines = Splitter.on("<html>").splitToList(unescapedString);
 
-            String include = (lines[0]);
+            String include =  lines.get(0);
             String fistNameElement = doc.select("body > table > tbody > tr:nth-child(1) > td:nth-child(2)").first().text();
             String lastNameElement = doc.select("body > table > tbody > tr:nth-child(2) > td:nth-child(2)").first().text();
 

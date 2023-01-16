@@ -23,6 +23,8 @@
 package org.owasp.webgoat.idor;
 
 
+import com.google.common.base.Splitter;
+import java.util.List;
 import org.owasp.webgoat.assignments.AssignmentEndpoint;
 import org.owasp.webgoat.assignments.AssignmentHints;
 import org.owasp.webgoat.assignments.AttackResult;
@@ -48,8 +50,8 @@ public class IDORViewOwnProfileAltUrl extends AssignmentEndpoint {
                 //going to use session auth to view this one
                 String authUserId = (String) userSessionData.getValue("idor-authenticated-user-id");
                 //don't care about http://localhost:8080 ... just want WebGoat/
-                String[] urlParts = url.split("/");
-                if (urlParts[0].equals("WebGoat") && urlParts[1].equals("IDOR") && urlParts[2].equals("profile") && urlParts[3].equals(authUserId)) {
+                List<String> urlParts = Splitter.on('/').splitToList(url);
+                if (urlParts.get(0).equals("WebGoat") && urlParts.get(1).equals("IDOR") && urlParts.get(2).equals("profile") && urlParts.get(3).equals(authUserId)) {
                     UserProfile userProfile = new UserProfile(authUserId);
                     return success(this).feedback("idor.view.own.profile.success").output(userProfile.profileToMap().toString()).build();
                 } else {

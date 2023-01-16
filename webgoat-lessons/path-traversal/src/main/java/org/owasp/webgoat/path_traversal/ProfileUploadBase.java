@@ -25,7 +25,7 @@ import java.util.Comparator;
 public class ProfileUploadBase extends AssignmentEndpoint {
 
     private String webGoatHomeDirectory;
-    private WebSession webSession;
+    private WebSession @Override webSession;
 
     protected AttackResult execute(MultipartFile file, String fullName) {
         if (file.isEmpty()) {

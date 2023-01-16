@@ -56,8 +56,7 @@ public class SimpleXXE extends AssignmentEndpoint {
     @Value("${webgoat.server.directory}")
     private String webGoatHomeDirectory;
 
-    @Value("${webwolf.landingpage.url}")
-    private String webWolfURL;
+    
 
 
     @Autowired

@@ -107,7 +107,7 @@ public class Comments {
     protected Optional<Comment> parseJson(String comment) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return of(mapper.readValue(comment, Comment.class));
+            return Optional.of(mapper.readValue(comment, Comment.class));
         } catch (IOException e) {
             return empty();
         }

@@ -22,6 +22,10 @@
 
 package org.owasp.webgoat.password_reset;
 
+import static java.util.Optional.ofNullable;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import org.apache.commons.lang3.StringUtils;
 import org.owasp.webgoat.assignments.AssignmentEndpoint;
 import org.owasp.webgoat.assignments.AttackResult;
@@ -33,10 +37,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
-import java.time.LocalDateTime;
-
-import static java.util.Optional.ofNullable;
 
 /**
  * @author nbaars
@@ -83,7 +83,7 @@ public class SimpleMailAssignment extends AssignmentEndpoint {
             PasswordResetEmail mailEvent = PasswordResetEmail.builder()
                     .recipient(username)
                     .title("Simple e-mail assignment")
-                    .time(LocalDateTime.now())
+                    .time(LocalDateTime.now(ZoneId.systemDefault()))
                     .contents("Thanks for resetting your password, your new password is: " + StringUtils.reverse(username))
                     .sender("webgoat@owasp.org")
                     .build();

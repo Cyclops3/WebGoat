@@ -22,6 +22,11 @@
 
 package org.owasp.webgoat.crypto;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import java.util.Base64;
+import java.util.Random;
+import javax.servlet.http.HttpServletRequest;
 import org.owasp.webgoat.assignments.AssignmentEndpoint;
 import org.owasp.webgoat.assignments.AttackResult;
 import org.springframework.http.MediaType;
@@ -31,15 +36,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Base64;
-import java.util.Random;
-
 @RestController
 public class EncodingAssignment extends AssignmentEndpoint {
 
 	public static String getBasicAuth(String username, String password) {
-    	return Base64.getEncoder().encodeToString(username.concat(":").concat(password).getBytes());
+    	return Base64.getEncoder().encodeToString(username.concat(":").concat(password).getBytes(UTF_8));
     }
 	
 	@GetMapping(path="/crypto/encoding/basic",produces=MediaType.TEXT_HTML_VALUE)

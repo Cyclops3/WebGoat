@@ -42,7 +42,7 @@ public class SecurePasswordsAssignment extends AssignmentEndpoint {
     @ResponseBody
     public AttackResult completed(@RequestParam String password) {
         Zxcvbn zxcvbn = new Zxcvbn();
-        StringBuffer output = new StringBuffer();
+        StringBuilder output = new StringBuilder();
         DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
         df.setMaximumFractionDigits(340);
         Strength strength = zxcvbn.measure(password);
@@ -83,10 +83,10 @@ public class SecurePasswordsAssignment extends AssignmentEndpoint {
         int d = (24 * hr);
         int yr = (365 * d);
 
-        long years = seconds / (d) / 365;
-        long days = (seconds % yr) / (d);
-        long hours = (seconds % d) / (hr);
-        long minutes = (seconds % hr) / (min);
+        long years = seconds /  d / 365;
+        long days = (seconds % yr) /  d;
+        long hours = (seconds % d) /  hr;
+        long minutes = (seconds % hr) /  min;
         long sec = (seconds % min * s);
 
         return (years + " years " + days + " days " + hours + " hours " + minutes + " minutes " + sec + " seconds");

@@ -22,6 +22,11 @@
 
 package org.owasp.webgoat.password_reset;
 
+import static java.util.Optional.of;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import org.owasp.webgoat.assignments.AssignmentEndpoint;
 import org.owasp.webgoat.assignments.AttackResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +34,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static java.util.Optional.of;
 
 /**
  * Assignment for picking a good security question.
@@ -70,7 +70,7 @@ public class SecurityQuestionAssignment extends AssignmentEndpoint {
     @PostMapping("/PasswordReset/SecurityQuestions")
     @ResponseBody
     public AttackResult completed(@RequestParam String question) {
-        var answer = of(questions.get(question));
+        var answer = Optional.of(questions.get(question));
         if (answer.isPresent()) {
             triedQuestions.incr(question);
             if (triedQuestions.isComplete()) {
