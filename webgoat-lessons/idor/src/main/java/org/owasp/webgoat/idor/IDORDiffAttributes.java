@@ -22,6 +22,8 @@
 
 package org.owasp.webgoat.idor;
 
+import com.google.common.base.Splitter;
+import java.util.List;
 import org.owasp.webgoat.assignments.AssignmentEndpoint;
 import org.owasp.webgoat.assignments.AssignmentHints;
 import org.owasp.webgoat.assignments.AttackResult;
@@ -38,12 +40,12 @@ public class IDORDiffAttributes extends AssignmentEndpoint {
     @ResponseBody
     public AttackResult completed(@RequestParam String attributes) {
         attributes = attributes.trim();
-        String[] diffAttribs = attributes.split(",");
-        if (diffAttribs.length < 2) {
+        List<String> diffAttribs = Splitter.on(',').splitToList(attributes);
+        if (diffAttribs.size() < 2) {
             return failed(this).feedback("idor.diff.attributes.missing").build();
         }
-        if (diffAttribs[0].toLowerCase().trim().equals("userid") && diffAttribs[1].toLowerCase().trim().equals("role")
-                || diffAttribs[1].toLowerCase().trim().equals("userid") && diffAttribs[0].toLowerCase().trim().equals("role")) {
+        if ((diffAttribs.get(0).toLowerCase().trim().equals("userid") && diffAttribs.get(1).toLowerCase().trim().equals("role"))
+                || (diffAttribs.get(1).toLowerCase().trim().equals("userid") && diffAttribs.get(0).toLowerCase().trim().equals("role"))) {
             return success(this).feedback("idor.diff.success").build();
         } else {
             return failed(this).feedback("idor.diff.failure").build();

@@ -22,8 +22,15 @@
 
 package org.owasp.webgoat.csrf;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.Map;
+import java.util.UUID;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.owasp.webgoat.assignments.AssignmentEndpoint;
 import org.owasp.webgoat.assignments.AssignmentHints;
@@ -36,12 +43,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author nbaars
@@ -66,7 +67,7 @@ public class CSRFFeedback extends AssignmentEndpoint {
             objectMapper.enable(DeserializationFeature.FAIL_ON_READING_DUP_TREE_KEY);
             objectMapper.enable(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES);
             objectMapper.enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
-            objectMapper.readValue(feedback.getBytes(), Map.class);
+            objectMapper.readValue(feedback.getBytes(UTF_8), Map.class);
         } catch (IOException e) {
             return failed(this).feedback(ExceptionUtils.getStackTrace(e)).build();
         }

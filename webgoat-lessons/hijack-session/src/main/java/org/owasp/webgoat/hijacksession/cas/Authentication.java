@@ -44,7 +44,8 @@ public class Authentication implements Principal {
     private Object credentials;
     private String id;
 
-    @Builder
+    Returns {@code this}.
+@Builder
     public Authentication(String name, Object credentials, String id) {
         this.name = name;
         this.credentials = credentials;

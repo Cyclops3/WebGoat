@@ -81,10 +81,10 @@ public class SampleAttack extends AssignmentEndpoint {
         return List.of(new Item("WG-1", "WebGoat promo", 12.0), new Item("WG-2", "WebGoat sticker", 0.00));
     }
 
-    @AllArgsConstructor
-    private class Item {
-        private String number;
-        private String description;
-        private double price;
+    
+    private static class Item {
+        
+        
+        
     }
 }

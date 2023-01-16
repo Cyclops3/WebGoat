@@ -47,7 +47,7 @@ import static org.owasp.webgoat.client_side_filtering.ClientSideFilteringFreeAss
 public class ShopEndpoint {
 
     @AllArgsConstructor
-    private class CheckoutCodes {
+    private static class CheckoutCodes {
 
         @Getter
         private List<CheckoutCode> codes;
@@ -59,9 +59,9 @@ public class ShopEndpoint {
 
     @AllArgsConstructor
     @Getter
-    private class CheckoutCode {
+    private static class CheckoutCode {
         private String code;
-        private int discount;
+        
     }
 
     private CheckoutCodes checkoutCodes;

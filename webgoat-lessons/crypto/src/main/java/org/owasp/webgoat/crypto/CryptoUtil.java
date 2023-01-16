@@ -113,7 +113,7 @@ public class CryptoUtil {
 			if (modulus.length()==512) {
 				modulus = "00".concat(modulus);
 			}
-			result = result && (DatatypeConverter.printHexBinary(rsaPubKey.getModulus().toByteArray()).equals(modulus.toUpperCase()));
+			result = result &&  DatatypeConverter.printHexBinary(rsaPubKey.getModulus().toByteArray()).equals(modulus.toUpperCase());
 		}
 		return result;
 

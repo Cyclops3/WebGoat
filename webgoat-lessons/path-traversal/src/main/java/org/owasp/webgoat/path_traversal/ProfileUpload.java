@@ -29,7 +29,7 @@ public class ProfileUpload extends ProfileUploadBase {
         return super.execute(file, fullName);
     }
 
-    @GetMapping("/PathTraversal/profile-picture")
+    @Override @GetMapping("/PathTraversal/profile-picture")
     @ResponseBody
     public ResponseEntity<?> getProfilePicture() {
         return super.getProfilePicture();

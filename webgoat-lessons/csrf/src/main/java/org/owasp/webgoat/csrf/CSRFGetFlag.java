@@ -22,6 +22,12 @@
 
 package org.owasp.webgoat.csrf;
 
+import com.google.common.base.Splitter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import javax.servlet.http.HttpServletRequest;
 import org.owasp.webgoat.i18n.PluginMessages;
 import org.owasp.webgoat.session.UserSessionData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +35,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * Created by jason on 9/30/17.
@@ -54,7 +55,7 @@ public class CSRFGetFlag {
 
         String host = (req.getHeader("host") == null) ? "NULL" : req.getHeader("host");
         String referer = (req.getHeader("referer") == null) ? "NULL" : req.getHeader("referer");
-        String[] refererArr = referer.split("/");
+        List<String> refererArr = Splitter.on('/').splitToList(referer);
 
 
         if (referer.equals("NULL")) {
@@ -71,7 +72,7 @@ public class CSRFGetFlag {
                 response.put("message", pluginMessages.getMessage("csrf-get-other-referer.success"));
                 response.put("flag", userSessionData.getValue("csrf-get-success"));
             }
-        } else if (refererArr[2].equals(host)) {
+        } else if (refererArr.get(2).equals(host)) {
             response.put("success", false);
             response.put("message", "Appears the request came from the original host");
             response.put("flag", null);

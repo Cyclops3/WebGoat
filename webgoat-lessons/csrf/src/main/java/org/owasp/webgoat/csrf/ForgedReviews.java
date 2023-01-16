@@ -22,7 +22,16 @@
 
 package org.owasp.webgoat.csrf;
 
+import static org.springframework.http.MediaType.ALL_VALUE;
+
 import com.beust.jcommander.internal.Lists;
+import com.google.common.base.Splitter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -36,15 +45,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.springframework.http.MediaType.ALL_VALUE;
 
 @RestController
 @AssignmentHints({"csrf-review-hint1", "csrf-review-hint2", "csrf-review-hint3"})
@@ -85,7 +85,7 @@ public class ForgedReviews extends AssignmentEndpoint {
     public AttackResult createNewReview(String reviewText, Integer stars, String validateReq, HttpServletRequest request) {
         final String host = (request.getHeader("host") == null) ? "NULL" : request.getHeader("host");
         final String referer = (request.getHeader("referer") == null) ? "NULL" : request.getHeader("referer");
-        final String[] refererArr = referer.split("/");
+        final List<String> refererArr = Splitter.on('/').splitToList(referer);
 
         Review review = new Review();
         review.setText(reviewText);
@@ -100,7 +100,7 @@ public class ForgedReviews extends AssignmentEndpoint {
             return failed(this).feedback("csrf-you-forgot-something").build();
         }
         //we have the spoofed files
-        if (referer != "NULL" && refererArr[2].equals(host)) {
+        if (!"NULL".equals(referer) && refererArr.get(2).equals(host)) {
             return failed(this).feedback("csrf-same-host").build();
         } else {
             return success(this).feedback("csrf-review.success").build(); //feedback("xss-stored-comment-failure")

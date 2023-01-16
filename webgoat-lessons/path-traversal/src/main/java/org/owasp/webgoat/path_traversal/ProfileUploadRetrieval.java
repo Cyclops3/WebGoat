@@ -1,5 +1,17 @@
 package org.owasp.webgoat.path_traversal;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.util.Base64;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.owasp.webgoat.assignments.AssignmentEndpoint;
@@ -18,17 +30,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.util.Base64;
 
 @RestController
 @AssignmentHints({
@@ -98,7 +99,7 @@ public class ProfileUploadRetrieval extends AssignmentEndpoint {
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .location(new URI("/PathTraversal/random-picture?id=" + catPicture.getName()))
-                    .body(StringUtils.arrayToCommaDelimitedString(catPicture.getParentFile().listFiles()).getBytes());
+                    .body(StringUtils.arrayToCommaDelimitedString(catPicture.getParentFile().listFiles()).getBytes(UTF_8));
         } catch (IOException | URISyntaxException e) {
             log.error("Image not found", e);
         }

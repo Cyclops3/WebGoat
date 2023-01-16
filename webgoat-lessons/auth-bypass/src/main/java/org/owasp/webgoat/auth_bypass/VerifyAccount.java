@@ -48,8 +48,7 @@ import java.util.Map;
 @AssignmentHints({"auth-bypass.hints.verify.1", "auth-bypass.hints.verify.2", "auth-bypass.hints.verify.3", "auth-bypass.hints.verify.4"})
 public class VerifyAccount extends AssignmentEndpoint {
 
-    @Autowired
-    private WebSession webSession;
+    
 
     @Autowired
     UserSessionData userSessionData;

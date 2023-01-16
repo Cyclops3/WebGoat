@@ -22,9 +22,10 @@
 
 package org.owasp.webgoat.spoofcookie.encoders;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.codec.Hex;
 
@@ -79,20 +80,20 @@ public class EncDec {
 
     private static String hexDecode(final String value) {
         byte[] decoded = Hex.decode(value);
-        return new String(decoded);
+        return new String(decoded, UTF_8);
     }
 
     private static String base64Encode(final String value) {
         return Base64
             .getEncoder()
-            .encodeToString(value.getBytes());
+            .encodeToString(value.getBytes(UTF_8));
     }
 
     private static String base64Decode(final String value) {
         byte[] decoded = Base64
             .getDecoder()
-            .decode(value.getBytes());
-        return new String(decoded);
+            .decode(value.getBytes(UTF_8));
+        return new String(decoded, UTF_8);
     }
 
 }

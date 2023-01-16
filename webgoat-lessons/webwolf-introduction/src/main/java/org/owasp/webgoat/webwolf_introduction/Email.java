@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+Returns {@code this}.
 @Builder
 @Data
 public class Email implements Serializable {

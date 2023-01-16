@@ -48,10 +48,8 @@ public class ContentTypeAssignment extends AssignmentEndpoint {
     private static final String[] DEFAULT_LINUX_DIRECTORIES = {"usr", "etc", "var"};
     private static final String[] DEFAULT_WINDOWS_DIRECTORIES = {"Windows", "Program Files (x86)", "Program Files", "pagefile.sys"};
 
-    @Value("${webgoat.server.directory}")
-    private String webGoatHomeDirectory;
-    @Autowired
-    private WebSession webSession;
+    
+    
     @Autowired
     private Comments comments;
 

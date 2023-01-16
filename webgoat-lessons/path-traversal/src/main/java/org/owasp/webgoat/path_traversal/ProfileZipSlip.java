@@ -75,7 +75,7 @@ public class ProfileZipSlip extends ProfileUploadBase {
         return success(this).output("path-traversal-zip-slip.extracted").build();
     }
 
-    @GetMapping("/PathTraversal/zip-slip/")
+    @Override @GetMapping("/PathTraversal/zip-slip/")
     @ResponseBody
     public ResponseEntity<?> getProfilePicture() {
         return super.getProfilePicture();

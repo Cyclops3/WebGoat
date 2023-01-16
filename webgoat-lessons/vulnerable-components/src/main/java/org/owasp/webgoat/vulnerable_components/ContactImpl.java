@@ -24,12 +24,12 @@ package org.owasp.webgoat.vulnerable_components;
 
 import lombok.Data;
 
-@Data
+@Override @Data
 public class ContactImpl implements Contact {
 
-	private Integer id;
-	private String firstName;
-	private String lastName;
-	private String email;
+	private Integer @Override id;
+	private String @Override firstName;
+	private String @Override lastName;
+	private String @Override email;
 
 }
